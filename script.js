@@ -1,3 +1,4 @@
+//gets a random player option for the computer
 function get_computer_choice(){
     //generates a random number to determine what to return
     let randomInt = Math.floor(Math.random() * 3);
@@ -10,6 +11,7 @@ function get_computer_choice(){
     }
 }
 
+//determines if the player has won the round
 function player_win(player_selection, computer_selection){
     player_selection = player_selection.toLowerCase();
     computer_selection = computer_selection.toLowerCase();
@@ -24,6 +26,7 @@ function player_win(player_selection, computer_selection){
     }
 }
 
+//checks if the player option is valid
 function valid_player_option(player_selection){
     player_selection = player_selection.toLowerCase();
     if(player_selection === "rock"){
@@ -37,13 +40,10 @@ function valid_player_option(player_selection){
 
 }
 
+//Plays one round of the rock, paper, scissors game. Returns 0 if it is tie, 1 if player wins, and -1 if computer wins.
 function play_round(player_selection, computer_selection){
     let determineWin = player_win(player_selection, computer_selection);
     player_selection = capitalize(player_selection);
-    if(!player_selection === "rock" && !player_selection === "paper" && !player_selection === "scissors"){
-        return "Invalid Game.";
-    }
-
     if(determineWin == 0) {
         console.log("Tie Game!");
         return 0;
@@ -56,62 +56,42 @@ function play_round(player_selection, computer_selection){
         return -1;
     }
 }
+
+//Capitalizes the first letter of the string and lowercase all the others. 
 function capitalize(text){
     let capitalizeString = text.substring(0,1).toUpperCase();
     capitalizeString += text.substring(1, text.length).toLowerCase();
     return capitalizeString;
 }
-//change play round to 
-let winScore = 0, loseScore = 0;
-// function game() {
-//     let playerOption = prompt("Pick a player: rock, paper, or scissors");
-//     playerOption = playerOption.toLowerCase();
-//     let computer_selection = getComputerChoice();
-//     let score = playRound(playerOption, computer_selection);
-//     if(score == 1){
-//         winScore++;
-//     } else if (score == -1){
-//         loseScore++;
-//     }
 
-// }
-
+//Plays the rock, paper, and scissors game 5 times and keep track of the scores.
 function game(){
     let player_win = 0, computer_win = 0; 
     let message = "";
     let player_option = "";
     for(let i = 0; i < 5; i++){
         do{
-            //console.log("This is running");
-            player_option = prompt("Pick a player: rock, paper, or scissors");
+            //prompts the user for player option they want to play
+            player_option = prompt("Pick a player: rock, paper, or scissors"); 
             player_option = player_option.toLowerCase();
-            //console.log("valid player option? " + valid_player_option(player_option));
-        } while(!valid_player_option(player_option));
-        let computer_selection = get_computer_choice();
-        let curr_round = play_round(player_option, computer_selection);
-        if(curr_round === 1){
+        } while(!valid_player_option(player_option)); //makes sure that the user puts in the valid player option
+        let computer_selection = get_computer_choice(); //gets the randomized computer choice
+        let curr_round = play_round(player_option, computer_selection); 
+        if(curr_round === 1){ //if curr_round is 1, then increment player_win
             player_win ++;
-        } else if(curr_round === -1){
+        } else if(curr_round === -1){ //if curr_round is -1, then increment computer_win
             computer_win++;
         }
-        //player_win += play_round(player_option, computer_selection);
-        console.log("Player score: " + player_win);
+        console.log("Player score: " + player_win); 
     }
-    if(player_win > computer_win){
+    if(player_win > computer_win){ //if player_win > computer_win, print that player wins
         message = "Player wins with score " + player_win + " to " + computer_win;
-    } else if (player_win < computer_win){
+    } else if (player_win < computer_win){ //if player_win < computer_win, print that computer wins
         message = "Computer wins with score " + computer_win + " to " + player_win;
-    } else {
+    } else {//if player_win = computer_win, print that player and computer tied
         message = "Tie with score " + player_win + " to " + computer_win;
     }
     return message;
 }
 
 console.log(game());
-
-// const player_selection = "rock";
-// const computer_selection = getComputerChoice();
-// console.log(playRound(player_selection, computer_selection));
-// for(let i = 0; i < 5; i++){
-//     console.log(game());
-// }
