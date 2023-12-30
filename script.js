@@ -112,68 +112,37 @@ function game() {
     win.classList.add("score")
     resultContainer.appendChild(win)
 
-    rock.addEventListener('click', () => {
-        curr_round = play_round("rock", get_computer_choice())
-        if (curr_round === 1) { //if curr_round is 1, then increment player_win
-            player_win++;
-        } else if (curr_round === -1) { //if curr_round is -1, then increment computer_win
-            computer_win++;
-        }
-        player.textContent = "Player score: " + player_win
-        comp.textContent = "Computer score: " + computer_win
-        if (player_win == 5 || computer_win == 5) {
-            //stop the game and announce the winner 
-            win.textContent = print_winner(player_win, computer_win)
-            rock.disabled = true
-            paper.disabled = true
-            scissor.disabled = true
-        }
-
-        // console.log("Player score: " + player_win);
-    })
-    paper.addEventListener('click', () => {
-        curr_round = play_round("paper", get_computer_choice())
-        if (curr_round === 1) { //if curr_round is 1, then increment player_win
-            player_win++;
-        } else if (curr_round === -1) { //if curr_round is -1, then increment computer_win
-            computer_win++;
-        }
-        player.textContent = "Player score: " + player_win
-        comp.textContent = "Computer score: " + computer_win
-        if (player_win == 5 || computer_win == 5) {
-            //stop the game and announce the winner 
-            win.textContent = print_winner(player_win, computer_win)
-            rock.disabled = true
-            paper.disabled = true
-            scissor.disabled = true
+    const play = (arg) => {
+        return () => {
+            curr_round = play_round("scissors", get_computer_choice())
+            if (curr_round === 1) { //if curr_round is 1, then increment player_win
+                player_win++;
+            } else if (curr_round === -1) { //if curr_round is -1, then increment computer_win
+                computer_win++;
+            }
+            player.textContent = "Player score: " + player_win
+            comp.textContent = "Computer score: " + computer_win
+            if (player_win == 5 || computer_win == 5) {
+                //stop the game and announce the winner 
+                win.textContent = print_winner(player_win, computer_win)
+                rock.disabled = true
+                paper.disabled = true
+                scissor.disabled = true
+            }
+            // console.log("Player score: " + player_win);
         }
         // console.log("Player score: " + player_win);
-    })
-    scissor.addEventListener('click', () => {
-        curr_round = play_round("scissors", get_computer_choice())
-        if (curr_round === 1) { //if curr_round is 1, then increment player_win
-            player_win++;
-        } else if (curr_round === -1) { //if curr_round is -1, then increment computer_win
-            computer_win++;
-        }
-        player.textContent = "Player score: " + player_win
-        comp.textContent = "Computer score: " + computer_win
-        if (player_win == 5 || computer_win == 5) {
-            //stop the game and announce the winner 
-            win.textContent = print_winner(player_win, computer_win)
-            rock.disabled = true
-            paper.disabled = true
-            scissor.disabled = true
-        }
-        // console.log("Player score: " + player_win);
-    })
+    }
+
+    rock.addEventListener('click', play("rock"))
+    paper.addEventListener('click', play("paper"))
+    scissor.addEventListener('click', play("scissors"))
 
 
-   return print_winner(player_win, computer_win)
+    return print_winner(player_win, computer_win)
 }
 
-function print_winner(player_win, computer_win)
-{
+function print_winner(player_win, computer_win) {
     let message = ""
     if (player_win > computer_win) { //if player_win > computer_win, print that player wins
         message = "Player wins with score " + player_win + " to " + computer_win;
