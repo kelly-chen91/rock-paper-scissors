@@ -64,6 +64,7 @@ function capitalize(text) {
     return capitalizeString;
 }
 
+
 //Plays the rock, paper, and scissors game 5 times and keep track of the scores.
 function game() {
     let player_win = 0, computer_win = 0;
@@ -92,22 +93,88 @@ function game() {
     let curr_round = 0
     //call player round with computer selection and user's selection
     // let computer_selection = get_computer_choice()
+    const resultContainer = document.querySelector("#result")
+
+    //Display player score
+    const player = document.createElement('p')
+    player.classList.add("score")
+    player.textContent = "Player score: " + player_win
+    resultContainer.appendChild(player)
+
+    //Display computer score
+    const comp = document.createElement('p')
+    comp.classList.add("score")
+    comp.textContent = "Computer score: " + computer_win
+    resultContainer.appendChild(comp)
+
+    //Display the winner 
+    const win = document.createElement('p')
+    win.classList.add("score")
+    resultContainer.appendChild(win)
+
     rock.addEventListener('click', () => {
         curr_round = play_round("rock", get_computer_choice())
+        if (curr_round === 1) { //if curr_round is 1, then increment player_win
+            player_win++;
+        } else if (curr_round === -1) { //if curr_round is -1, then increment computer_win
+            computer_win++;
+        }
+        player.textContent = "Player score: " + player_win
+        comp.textContent = "Computer score: " + computer_win
+        if (player_win == 5 || computer_win == 5) {
+            //stop the game and announce the winner 
+            win.textContent = print_winner(player_win, computer_win)
+            rock.disabled = true
+            paper.disabled = true
+            scissor.disabled = true
+        }
+
+        // console.log("Player score: " + player_win);
     })
     paper.addEventListener('click', () => {
         curr_round = play_round("paper", get_computer_choice())
+        if (curr_round === 1) { //if curr_round is 1, then increment player_win
+            player_win++;
+        } else if (curr_round === -1) { //if curr_round is -1, then increment computer_win
+            computer_win++;
+        }
+        player.textContent = "Player score: " + player_win
+        comp.textContent = "Computer score: " + computer_win
+        if (player_win == 5 || computer_win == 5) {
+            //stop the game and announce the winner 
+            win.textContent = print_winner(player_win, computer_win)
+            rock.disabled = true
+            paper.disabled = true
+            scissor.disabled = true
+        }
+        // console.log("Player score: " + player_win);
     })
     scissor.addEventListener('click', () => {
         curr_round = play_round("scissors", get_computer_choice())
+        if (curr_round === 1) { //if curr_round is 1, then increment player_win
+            player_win++;
+        } else if (curr_round === -1) { //if curr_round is -1, then increment computer_win
+            computer_win++;
+        }
+        player.textContent = "Player score: " + player_win
+        comp.textContent = "Computer score: " + computer_win
+        if (player_win == 5 || computer_win == 5) {
+            //stop the game and announce the winner 
+            win.textContent = print_winner(player_win, computer_win)
+            rock.disabled = true
+            paper.disabled = true
+            scissor.disabled = true
+        }
+        // console.log("Player score: " + player_win);
     })
-    if (curr_round === 1) { //if curr_round is 1, then increment player_win
-        player_win++;
-    } else if (curr_round === -1) { //if curr_round is -1, then increment computer_win
-        computer_win++;
-    }
-    console.log("Player score: " + player_win);
 
+
+   return print_winner(player_win, computer_win)
+}
+
+function print_winner(player_win, computer_win)
+{
+    let message = ""
     if (player_win > computer_win) { //if player_win > computer_win, print that player wins
         message = "Player wins with score " + player_win + " to " + computer_win;
     } else if (player_win < computer_win) { //if player_win < computer_win, print that computer wins
@@ -117,5 +184,4 @@ function game() {
     }
     return message;
 }
-
 console.log(game());
