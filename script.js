@@ -112,6 +112,7 @@ function game() {
     win.classList.add("score")
     resultContainer.appendChild(win)
 
+    //This is like a thunk -> to have the program to evaluate this later
     const play = (arg) => {
         return () => {
             curr_round = play_round("scissors", get_computer_choice())
